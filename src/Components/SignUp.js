@@ -1,0 +1,92 @@
+import React, { useContext } from "react";
+import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useState } from "react";
+import { checkValidate } from "./Utils/validate";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./Routing";
+
+// Signup form
+const SignUp = () => {
+  const userData = useContext(UserContext); //useContext hook for creating app level data and used in any component
+  const { user, setUser } = userData;
+
+  const [errorMessage, setErrorMessage] = useState();
+  const navigate = useNavigate();
+  const message = checkValidate(user.email, user.password);
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmitError = (e) => {
+    e.preventDefault();
+    setErrorMessage(message);
+
+    if (!message && user) {
+      navigate("/todolist");
+    } else {
+      navigate("/");
+    }
+  };
+
+  return (
+    <Container className="h-screen w-full bg-gradient-to-b from-zinc-200 via-teal-100 to-gray-100 py-20">
+      <Box className="mx-auto my-20 align-middle bg-rose-200 p-4 border rounded-lg md:w-8/12 lg:w-5/12 xl:w-5/12">
+        <Typography className="text-blue-700 text-center pb-3" variant="h5">
+          Sign Up
+        </Typography>
+        <Box className="shadow-lg py-4 px-4">
+          <form autoComplete="off" onSubmit={handleSubmitError}>
+            <Stack spacing={2}>
+              <TextField
+                required
+                value={user.firstname}
+                onChange={handleChange}
+                id="firstname"
+                name="firstname"
+                label="First Name"
+              ></TextField>
+              <TextField
+                required
+                value={user.lastname}
+                onChange={handleChange}
+                id="lastname"
+                name="lastname"
+                label="Last Name"
+              ></TextField>
+              <TextField
+                required
+                value={user.email}
+                onChange={handleChange}
+                id="email"
+                name="email"
+                label="Email Id"
+              ></TextField>
+              <TextField
+                required
+                value={user.password}
+                onChange={handleChange}
+                id="password"
+                name="password"
+                type="password"
+                label="Password"
+              ></TextField>
+              <p className="text-red-700 font-thin font-serif pb-4">
+                {errorMessage}
+              </p>
+            </Stack>
+            <Button type="submit" variant="contained">
+              Sign Up
+            </Button>
+          </form>
+        </Box>
+      </Box>
+    </Container>
+  );
+};
+export default SignUp;
