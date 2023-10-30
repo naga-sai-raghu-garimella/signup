@@ -1,21 +1,28 @@
-import React, { useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { Stack, Button, List, Container, ListItem } from "@mui/material";
-import { useState } from "react";
-import Typography from "@mui/material/Typography";
-import Checkbox from "@mui/material/Checkbox";
-import ListItemText from "@mui/material/ListItemText";
+import React, { useEffect, useState } from "react";
+import {
+  Stack,
+  Button,
+  List,
+  Container,
+  ListItem,
+  TextField,
+  Box,
+  Typography,
+  Checkbox,
+  ListItemText,
+} from "@mui/material";
 import ConfirmDialog from "./ConfirmDialog";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { LOCAL_STORAGE_KEY } from "./Utils/constants";
+import { LOCAL_STORAGE_KEY } from "../utils/constants";
 
 //Adding, updating, deleting the tasks
 const TodoTasks = () => {
   const [input, setInput] = useState("");
   const [deleteId, setDeleteId] = useState("");
   const [open, openChange] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
 
   // get data from local storage
   const [listOfTasks, setListOfTasks] = useState(() => {
@@ -45,10 +52,15 @@ const TodoTasks = () => {
   //adding tasks
   const handleClick = () => {
     const id = listOfTasks.length + 1;
+    const isTaskExist = listOfTasks.some((task) => task.task === input);
 
     if (!input) {
       setError("Please Enter the Task");
-    } else {
+    }
+    else if (isTaskExist) {
+      setError("Task already exists");
+    }
+     else {
       setError(null);
       setListOfTasks((prev) => [
         ...prev,
@@ -66,20 +78,17 @@ const TodoTasks = () => {
   // finding task by id
   const findById = (id) => {
     listOfTasks.find((task) => (task.id === id ? setInput(task.task) : ""));
+    setEditMode(true);
   };
 
   //updating task by id
   const handleUpdate = (id, newText) => {
-    if (!input) {
-      setError("Incorrect update");
-    } else {
-      setError(null);
+    setEditMode(false);
       setListOfTasks(
         listOfTasks.map((todo) =>
           todo.id === id ? { ...todo, task: newText } : todo
         )
       );
-    }
     setInput("");
   };
 
@@ -97,7 +106,12 @@ const TodoTasks = () => {
 
   //remove all tasks
   const removeAllTasks = () => {
-    setListOfTasks([]);
+    if (listOfTasks.length === 0) {
+      setError("No tasks available");
+    } else {
+      setListOfTasks([]);
+      setError("");
+    }
   };
 
   //checking whether the task completed or not
@@ -115,7 +129,7 @@ const TodoTasks = () => {
       <Box className="flex flex-col items-center mt-20 space-y-4">
         <Typography
           variant="h4"
-          sx={{ fontFamily: "monospace", fontWeight: "700" }}
+          sx={{ fontFamily: "monospace", fontWeight: "700", color: "purple" }}
         >
           TASK-LIST
         </Typography>
@@ -138,16 +152,16 @@ const TodoTasks = () => {
           </Button>
         </Stack>
         <Typography className="text-red-700 pr-20">{error}</Typography>
-        <Box className="w-full max-w-lg bg-slate-400 p-4 rounded-md max-md:w-screen px-0">
+        <Box className="w-full max-w-lg bg-gradient-to-t from-black via-gray-700 to-gray-800 p-4 rounded-md max-md:w-screen px-0">
           <List>
-            <Typography className="font-bold pl-4" variant="h5">
+            <Typography className="font-bold pl-4 text-white" variant="h5">
               List of tasks
             </Typography>
             {listOfTasks.map((task) => {
               return (
                 <Box key={task.id}>
                   <ListItem>
-                    <Box className="bg-slate-300 gap-2 flex items-center w-full rounded-lg">
+                    <Box className="bg-white flex items-center w-full rounded-lg">
                       <Checkbox
                         checked={task.completed}
                         color="success"
@@ -166,6 +180,7 @@ const TodoTasks = () => {
                           onClick={() => findById(task.id)}
                         />
                         <Button
+                        disabled={!editMode}
                           className="w-8 text-xl h-7 items-center"
                           variant="contained"
                           onClick={() => {
@@ -187,7 +202,13 @@ const TodoTasks = () => {
             })}
           </List>
         </Box>
-        <Button variant="outlined" onClick={removeAllTasks}>
+        <Button  sx={{
+            backgroundColor: "grey",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "black",
+            },
+          }} onClick={removeAllTasks}>
           Clear All
         </Button>
       </Box>

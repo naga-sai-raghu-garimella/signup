@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignUp from "./SignUp";
+import SignUp from "../components/SignUp";
 import { useState } from "react";
 import { createContext } from "react";
-import TodoList from "./TodoList";
+import TodoList from "../components/TodoList";
 
 export const UserContext = createContext(null);//created context
 
