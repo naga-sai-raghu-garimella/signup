@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import {Stack,Container,Box, TextField, Typography, Button, Container} from "@mui/material/Stack";
-import { checkValidate } from "./utils/validate";
+import {Stack,Container,Box, TextField, Typography, Button} from "@mui/material";
+import { checkValidate } from "../utils/validate";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../routes/routes";
 
@@ -29,12 +29,12 @@ const SignUp = () => {
   };
 
   return (
-    <Container className="h-screen w-full bg-gradient-to-b from-zinc-200 via-teal-100 to-gray-100 py-20">
-      <Box className="mx-auto my-20 align-middle bg-rose-200 p-4 border rounded-lg md:w-8/12 lg:w-5/12 xl:w-5/12">
-        <Typography className="text-blue-700 text-center pb-3" variant="h5">
+    <Container className="min-h-screen w-full bg-slate-200 py-20">
+      <Box className="mx-auto my-20 align-middle bg-white p-4 border rounded-lg lg:w-80 md:w-96 xs:w-full">
+        <Typography className="text-blue-700 text-center" variant="h5">
           Sign Up
         </Typography>
-        <Box className="shadow-lg py-4 px-4">
+        <Box className="shadow-lg p-7">
           <form autoComplete="off" onSubmit={handleSubmitError}>
             <Stack spacing={2}>
               <TextField
