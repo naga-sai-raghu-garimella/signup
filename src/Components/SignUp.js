@@ -1,14 +1,8 @@
-import React, { useContext } from "react";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { useState } from "react";
-import { checkValidate } from "./Utils/validate";
+import React, { useContext, useState } from "react";
+import {Stack,Container,Box, TextField, Typography, Button, Container} from "@mui/material/Stack";
+import { checkValidate } from "./utils/validate";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./Routing";
+import { UserContext } from "../routes/routes";
 
 // Signup form
 const SignUp = () => {
