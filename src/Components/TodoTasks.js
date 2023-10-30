@@ -77,12 +77,14 @@ const TodoTasks = () => {
 
   // finding task by id
   const findById = (id) => {
+    setError(null);
     listOfTasks.find((task) => (task.id === id ? setInput(task.task) : ""));
     setEditMode(true);
   };
 
   //updating task by id
   const handleUpdate = (id, newText) => {
+    setError(null);
     setEditMode(false);
       setListOfTasks(
         listOfTasks.map((todo) =>
@@ -100,6 +102,7 @@ const TodoTasks = () => {
 
   //delete by id
   const handleDelete = () => {
+    setError(null);
     setListOfTasks(listOfTasks.filter((task) => task.id !== deleteId));
     closePop();
   };
