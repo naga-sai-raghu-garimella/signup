@@ -128,8 +128,8 @@ const TodoTasks = () => {
 
   //rendering list of tasks
   return (
-    <Container>
-      <Box className="flex flex-col items-center mt-20 space-y-4">
+    <Container className="mt-10">
+      <Box className="flex flex-col items-center space-y-4 p-4">
         <Typography
           variant="h4"
           sx={{ fontFamily: "monospace", fontWeight: "700", color: "purple" }}
@@ -155,7 +155,7 @@ const TodoTasks = () => {
           </Button>
         </Stack>
         <Typography className="text-red-700 pr-20">{error}</Typography>
-        <Box className="w-full max-w-lg bg-gradient-to-t from-black via-gray-700 to-gray-800 p-4 rounded-md max-md:w-screen px-0">
+        <Box className="w-full max-w-lg bg-gradient-to-t from-black via-gray-700 to-gray-800 p-4 rounded-md max-md:w-screen px-0" bgcolor={"background.default"} color="black">
           <List>
             <Typography className="font-bold pl-4 text-white" variant="h5">
               List of tasks
