@@ -6,3 +6,6 @@
 * Created Routing to navigate from sign up to todolist page and display the user name.
 * Created app level user data with use context which is used for every component directly without nested props passing.
 * Created TodoTasks class for adding, getting, updating, deleting tasks.
+* Created Profile page for user.
+* Created navbar and sidebar.
+* Done email validation for profile update.
