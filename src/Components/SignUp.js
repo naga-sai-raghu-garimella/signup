@@ -1,6 +1,13 @@
 import React, { useContext, useState } from "react";
-import {Stack,Container,Box, TextField, Typography, Button} from "@mui/material";
-import { checkValidate } from "../utils/validate";
+import {
+  Stack,
+  Container,
+  Box,
+  TextField,
+  Typography,
+  Button,
+} from "@mui/material";
+import { checkValidateEmail, checkValidatePassword } from "../utils/validate";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../routes/routes";
 
@@ -11,7 +18,8 @@ const SignUp = () => {
 
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
-  const message = checkValidate(user.email, user.password);
+  const emailErrorMessage = checkValidateEmail(user.email);
+  const passwordErrorMessage = checkValidatePassword(user.password);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -19,9 +27,11 @@ const SignUp = () => {
 
   const handleSubmitError = (e) => {
     e.preventDefault();
-    setErrorMessage(message);
 
-    if (!message && user) {
+    const combinedErrorMessage = `${emailErrorMessage} ${passwordErrorMessage}`;
+    setErrorMessage(combinedErrorMessage.trim());
+
+    if (!emailErrorMessage && !passwordErrorMessage && user) {
       navigate("/todolist");
     } else {
       navigate("/");

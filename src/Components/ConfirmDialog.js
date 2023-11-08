@@ -1,21 +1,16 @@
 import React from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContentText from "@mui/material/DialogContentText";
-import Button from "@mui/material/Button";
+import {Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, Button} from "@mui/material"
 
 //dialog box for delete confirmation
-const ConfirmDialog = ({ open, close, handleDelete }) => {
+const ConfirmDialog = ({ open, close, handleConfirm, message }) => {
   return (
     <Dialog open={open} onClose={close}>
       <DialogTitle>Confirmation</DialogTitle>
       <DialogContent>
-        <DialogContentText>Do you want to delete?</DialogContentText>
+        <DialogContentText>{message}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleDelete} variant="contained" color="success">
+        <Button onClick={handleConfirm} variant="contained" color="success">
           Yes
         </Button>
         <Button onClick={close} variant="contained" color="primary">

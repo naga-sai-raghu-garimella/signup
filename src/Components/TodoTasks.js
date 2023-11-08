@@ -23,7 +23,6 @@ const TodoTasks = () => {
   const [open, openChange] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-
   // get data from local storage
   const [listOfTasks, setListOfTasks] = useState(() => {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
@@ -56,11 +55,9 @@ const TodoTasks = () => {
 
     if (!input) {
       setError("Please Enter the Task");
-    }
-    else if (isTaskExist) {
+    } else if (isTaskExist) {
       setError("Task already exists");
-    }
-     else {
+    } else {
       setError(null);
       setListOfTasks((prev) => [
         ...prev,
@@ -86,11 +83,11 @@ const TodoTasks = () => {
   const handleUpdate = (id, newText) => {
     setError(null);
     setEditMode(false);
-      setListOfTasks(
-        listOfTasks.map((todo) =>
-          todo.id === id ? { ...todo, task: newText } : todo
-        )
-      );
+    setListOfTasks(
+      listOfTasks.map((todo) =>
+        todo.id === id ? { ...todo, task: newText } : todo
+      )
+    );
     setInput("");
   };
 
@@ -155,7 +152,11 @@ const TodoTasks = () => {
           </Button>
         </Stack>
         <Typography className="text-red-700 pr-20">{error}</Typography>
-        <Box className="w-full max-w-lg bg-gradient-to-t from-black via-gray-700 to-gray-800 p-4 rounded-md max-md:w-screen px-0" bgcolor={"background.default"} color="black">
+        <Box
+          className="w-full max-w-lg bg-gradient-to-t from-black via-gray-700 to-gray-800 p-4 rounded-md max-md:w-screen px-0"
+          bgcolor={"background.default"}
+          color="black"
+        >
           <List>
             <Typography className="font-bold pl-4 text-white" variant="h5">
               List of tasks
@@ -183,7 +184,7 @@ const TodoTasks = () => {
                           onClick={() => findById(task.id)}
                         />
                         <Button
-                        disabled={!editMode}
+                          disabled={!editMode}
                           className="w-8 text-xl h-7 items-center"
                           variant="contained"
                           onClick={() => {
@@ -205,17 +206,25 @@ const TodoTasks = () => {
             })}
           </List>
         </Box>
-        <Button  sx={{
+        <Button
+          sx={{
             backgroundColor: "grey",
             color: "white",
             "&:hover": {
               backgroundColor: "black",
             },
-          }} onClick={removeAllTasks}>
+          }}
+          onClick={removeAllTasks}
+        >
           Clear All
         </Button>
       </Box>
-      <ConfirmDialog open={open} handleDelete={handleDelete} close={closePop} />
+      <ConfirmDialog
+        open={open}
+        handleConfirm={handleDelete}
+        close={closePop}
+        message="Do you want to delete?"
+      />
     </Container>
   );
 };

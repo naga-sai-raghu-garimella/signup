@@ -1,23 +1,41 @@
-import React from 'react';
-import { Box,Switch } from '@mui/material';
-import {List,ListItem, ListItemIcon,ListItemText, ListItemButton} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import { AccountCircle, Groups, ModeNight, Pages, PeopleAlt, Settings, Storefront } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemButton,
+  Box,
+  Switch,
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import {
+  AccountCircle,
+  Groups,
+  ModeNight,
+  Pages,
+  PeopleAlt,
+  Settings,
+  Storefront,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-const Sidebar = ({mode,setMode}) => {
+//sidebar
+const Sidebar = ({ mode, setMode }) => {
   return (
-    <Box p={2} sx={{display:{xs:"none", md:"block"}}}>
+    <Box p={2} sx={{ display: { xs: "none", md: "block" } }}>
       <Box className="fixed top-16">
-      <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Homepage" />
-            </ListItemButton>
-          </ListItem>
+        <List>
+          <Link to="/todolist">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Homepage" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -37,7 +55,7 @@ const Sidebar = ({mode,setMode}) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <Groups/>
+                <Groups />
               </ListItemIcon>
               <ListItemText primary="Groups" />
             </ListItemButton>
@@ -45,9 +63,9 @@ const Sidebar = ({mode,setMode}) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <Storefront/>
+                <Storefront />
               </ListItemIcon>
-              <ListItemText primary="Marketplace"/>
+              <ListItemText primary="Marketplace" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -58,27 +76,32 @@ const Sidebar = ({mode,setMode}) => {
               <ListItemText primary="Friends" />
             </ListItemButton>
           </ListItem>
-          <Link to="/profile"><ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <AccountCircle />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
+          <Link to="/profile">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
           </Link>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <ModeNight/>
+                <ModeNight />
               </ListItemIcon>
-             <Switch onClick={()=>{setMode(mode==="light"?"dark":"light")}}/>
+              <Switch
+                onClick={() => {
+                  setMode(mode === "light" ? "dark" : "light");
+                }}
+              />
             </ListItemButton>
           </ListItem>
-      </List>
+        </List>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
